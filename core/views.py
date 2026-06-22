@@ -38,8 +38,8 @@ def contact(request):
         if not (name and email):
             return render(request, 'core/contact.html', {'sent': False})
 
-        # Save to database (images omitted)
-        Enquiry.objects.create(
+        # Save to database
+        enquiry = Enquiry.objects.create(
             name=name,
             email=email,
             phone_number=phone_number,
@@ -48,6 +48,15 @@ def contact(request):
             preferred_date=preferred_date if preferred_date else None,
             message=message or '',
         )
+
+        # Handle uploaded images (multiple)
+        try:
+            files = request.FILES.getlist('images')
+            for f in files:
+                from .models import EnquiryImage
+                EnquiryImage.objects.create(enquiry=enquiry, image=f)
+        except Exception:
+            pass
         # Send notification (SendGrid web API if configured, otherwise Django email backend)
         subject = f'New enquiry from {name}'
         body = f'Name: {name}\nEmail: {email}\n\nMessage:\n{message}'

@@ -74,6 +74,10 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # Directory where `collectstatic` will gather static files for production
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# Media (uploaded files)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email configuration — use environment variables in production.

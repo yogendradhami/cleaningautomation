@@ -25,3 +25,14 @@ class EnquiryAdmin(admin.ModelAdmin):
             writer.writerow([getattr(obj, f) for f in field_names])
         return response
     export_as_csv.short_description = "Export selected enquiries as CSV"
+    
+
+from .models import EnquiryImage
+
+
+class EnquiryImageInline(admin.TabularInline):
+    model = EnquiryImage
+    extra = 0
+
+
+EnquiryAdmin.inlines = [EnquiryImageInline]

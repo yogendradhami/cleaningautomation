@@ -12,3 +12,11 @@ class Enquiry(models.Model):
 
     def __str__(self):
         return f"{self.name} <{self.email}> ({self.created_at:%Y-%m-%d %H:%M})"
+
+
+class EnquiryImage(models.Model):
+    enquiry = models.ForeignKey(Enquiry, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='enquiries/%Y/%m/%d')
+
+    def __str__(self):
+        return f"Image for {self.enquiry.name} ({self.id})"
