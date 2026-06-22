@@ -112,3 +112,47 @@ docker-compose up -d
 
 The compose file creates a `db` Postgres service and a `web` service. In production, override the secrets and use a managed Postgres.
 
+Using an env file
+-----------------
+Duplicate `.env.example` to `.env` and fill real values. `docker-compose.yml` reads from `.env` to avoid committing secrets.
+
+Render quick-deploy helper
+--------------------------
+If you deploy to Render, you can trigger a manual deploy with the helper script in `scripts/deploy_render.sh`. Set `RENDER_SERVICE_ID` and `RENDER_API_KEY` in your `.env` or CI secrets, then run:
+
+```bash
+source .env
+./scripts/deploy_render.sh
+```
+
+Push to GitHub
+--------------
+1. Create a new GitHub repository.
+2. Add it as a remote and push:
+
+```bash
+git remote add origin git@github.com:yourusername/yourrepo.git
+git push -u origin main
+```
+
+Setting up GitHub Actions deploy
+-------------------------------
+You can add repository secrets (`RENDER_API_KEY`, `RENDER_SERVICE_ID`, or `HEROKU_API_KEY`, etc.) and create a deploy workflow that triggers on push. The repository already contains a CI workflow for tests at `.github/workflows/ci.yml`.
+
+GitHub Actions deploy workflows
+-------------------------------
+Two example deploy workflows were added:
+
+- `.github/workflows/deploy_render.yml` — triggers a Render deploy by calling the Render API. Requires the repository secrets:
+	- `RENDER_SERVICE_ID`
+	- `RENDER_API_KEY`
+
+- `.github/workflows/deploy_heroku.yml` — pushes the code to a Heroku app via `HEROKU_API_KEY` and `HEROKU_APP_NAME` secrets. Set these in the repo settings before pushing to `main`.
+
+To enable automatic deploys on push:
+
+1. Add required repository secrets in GitHub (Settings → Secrets & variables → Actions).
+2. Push your code to GitHub on the `main` branch.
+
+
+

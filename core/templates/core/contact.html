@@ -2,22 +2,33 @@
 {% block title %}Contact — YDA Cleaning{% endblock %}
 {% block content %}
   <main class="container">
-    <h1>Contact Us</h1>
-    <p>Ready for a quote? Email us at <a href="mailto:info@ydcleaning.com">info@ydcleaning.com</a> or use the form below.</p>
+    <h1>Contact & Quick Quote</h1>
+    <p>Tell us about your cleaning needs and we'll provide a personalized quote. No obligation.</p>
 
     {% if sent %}
       <p class="center">Thanks — your message was sent. We'll respond shortly.</p>
     {% endif %}
 
-    <form class="contact-form" action="" method="post" id="contactForm" novalidate>
+    <form class="contact-form" action="" method="post" enctype="multipart/form-data" id="contactForm" novalidate>
       {% csrf_token %}
-      <!-- Honeypot field to reduce bot spam; should remain empty -->
-      <label style="display:none">Phone<input type="text" name="phone" tabindex="-1" autocomplete="off"></label>
+      <!-- honeypot field to reduce bot spam; should remain empty -->
+      <label style="display:none">Trap<input type="text" name="phone" tabindex="-1" autocomplete="off"></label>
 
-      <label>Name<input type="text" name="name" required></label>
-      <label>Email<input type="email" name="email" required></label>
-      <label>Message<textarea name="message" rows="6" required></textarea></label>
-      <button type="submit" class="btn">Send</button>
+      <label>Full Name<input type="text" name="name" required></label>
+      <label>Email Address<input type="email" name="email" required></label>
+      <label>Phone Number<input name="phone_number"></label>
+      <label>Property Type
+        <select name="property_type">
+          <option>Residential</option>
+          <option>Commercial</option>
+          <option>End-of-lease</option>
+        </select>
+      </label>
+      <label>Suburb/Postcode<input name="suburb"></label>
+      <label>Preferred Date<input type="date" name="preferred_date"></label>
+      <label>Upload Images (optional)<input type="file" name="images" accept="image/*"></label>
+      <label>Additional Details<textarea name="message" rows="5"></textarea></label>
+      <div style="display:flex;gap:8px;align-items:center"><button type="submit" class="btn">Get Your Free Quote</button> <a class="link" href="tel:+61430049865">Call 0430 049 865</a></div>
     </form>
   </main>
 {% endblock %}

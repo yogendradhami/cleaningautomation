@@ -2,34 +2,79 @@
 {% block title %}Home — YDA Cleaning{% endblock %}
 {% block content %}
   <section class="hero">
-    <div class="container">
-      <h1>Reliable Residential & Commercial Cleaning</h1>
-      <p>Fast, trusted, and eco-friendly cleaning solutions tailored for your space.</p>
-      <p><a class="cta" href="/contact/">Get a Free Quote</a></p>
+    <div class="container hero-grid">
+      <div>
+        <h1>Professional Cleaning, Every Time</h1>
+        <p>Reliable, affordable and high-quality cleaning solutions for residential and commercial properties across Adelaide.</p>
+        <p><a class="cta" href="/contact/">Get Free Quote</a> <a class="link" href="/booking">Book Instantly</a></p>
+        <ul class="features">
+          <li>2-Hour Response</li>
+          <li>100% Satisfaction Guarantee</li>
+          <li>Insured & Background-checked Teams</li>
+        </ul>
+      </div>
+
+      <aside class="quote-box">
+        <h3>Get Your Free Quote in 60 Seconds</h3>
+        <form action="/contact/" method="post" class="quick-quote">
+          {% csrf_token %}
+          <label>Name<input name="name" required></label>
+          <label>Email<input type="email" name="email" required></label>
+          <label>Phone<input name="phone"></label>
+          <label>Property Type
+            <select name="property_type">
+              <option>Residential</option>
+              <option>Commercial</option>
+              <option>End-of-lease</option>
+            </select>
+          </label>
+          <button class="btn" type="submit">Get My Free Quote</button>
+        </form>
+      </aside>
     </div>
   </section>
 
   <section class="services-preview container">
-    <h2>Our Services</h2>
+    <h2>Our Popular Cleaning Services</h2>
     <div class="grid">
       <article class="card">
-        <h3>Home Cleaning</h3>
-        <p>Weekly, bi-weekly, and one-time deep cleans to keep your home spotless.</p>
+        <h3>Residential Cleaning</h3>
+        <p>Weekly, fortnightly or one-time deep cleans to keep your home spotless.</p>
+        <p><a href="/services/#residential-cleaning" class="link">Learn More →</a></p>
       </article>
       <article class="card">
-        <h3>Office Cleaning</h3>
-        <p>Flexible commercial schedules to keep your workspace healthy and productive.</p>
+        <h3>Commercial Cleaning</h3>
+        <p>Office and workplace cleaning that keeps your business looking professional.</p>
+        <p><a href="/services/#commercial-cleaning" class="link">Learn More →</a></p>
       </article>
       <article class="card">
-        <h3>Move In / Move Out</h3>
-        <p>Thorough cleaning to make moving easier and faster.</p>
+        <h3>End-of-Lease (Bond)</h3>
+        <p>Inspection-ready cleaning to maximise bond return.</p>
+        <p><a href="/services/#end-of-lease-cleaning" class="link">Learn More →</a></p>
       </article>
     </div>
-    <p class="center"><a href="/services/" class="link">See all services →</a></p>
+    <p class="center"><a href="/services/" class="link">View All Services →</a></p>
   </section>
 
-  <section class="about-preview container">
-    <h2>Why Choose Us</h2>
-    <p>Locally owned, fully insured, and committed to green cleaning. Our teams are background-checked and trained to deliver consistent quality.</p>
+  <section class="before-after container">
+    <h2>See the Transformation</h2>
+    <div class="ba-grid">
+      <img src="/static/assets/logo.svg" alt="Before"/>
+      <img src="/static/assets/logo.svg" alt="After"/>
+    </div>
+    <p class="center"><a href="/gallery" class="link">See more case studies</a></p>
+  </section>
+
+  <section class="faq container">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>How long does a typical cleaning appointment take?</summary>
+      <p>Duration depends on your property size and service type. Typical residential cleans take 2–4 hours.</p>
+    </details>
+    <details>
+      <summary>Do you use eco-friendly products?</summary>
+      <p>Yes — we offer green cleaning options on request.</p>
+    </details>
+    <p class="center"><a href="/faq" class="link">View all FAQs →</a></p>
   </section>
 {% endblock %}

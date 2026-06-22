@@ -3,9 +3,9 @@ services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_DB: ydauto
-      POSTGRES_USER: ydauto
-      POSTGRES_PASSWORD: ydautopass
+      POSTGRES_DB: ${POSTGRES_DB:-ydauto}
+      POSTGRES_USER: ${POSTGRES_USER:-ydauto}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ydautopass}
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -15,14 +15,16 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgres://ydauto:ydautopass@db:5432/ydauto
-      - DJANGO_DEBUG=0
-      - DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
-      - DJANGO_SECRET_KEY=change-me-in-production
+      - DATABASE_URL=${DATABASE_URL}
+      - DJANGO_DEBUG=${DJANGO_DEBUG:-0}
+      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
     depends_on:
       - db
     volumes:
       - .:/app
+    env_file:
+      - .env
 
 volumes:
   pgdata:
