@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+{% block title %}Contact — YDA Cleaning{% endblock %}
+{% block content %}
+  <main class="container">
+    <h1>Contact Us</h1>
+    <p>Ready for a quote? Email us at <a href="mailto:info@ydcleaning.com">info@ydcleaning.com</a> or use the form below.</p>
+
+    {% if sent %}
+      <p class="center">Thanks — your message was sent. We'll respond shortly.</p>
+    {% endif %}
+
+    <form class="contact-form" action="" method="post" id="contactForm" novalidate>
+      {% csrf_token %}
+      <!-- Honeypot field to reduce bot spam; should remain empty -->
+      <label style="display:none">Phone<input type="text" name="phone" tabindex="-1" autocomplete="off"></label>
+
+      <label>Name<input type="text" name="name" required></label>
+      <label>Email<input type="email" name="email" required></label>
+      <label>Message<textarea name="message" rows="6" required></textarea></label>
+      <button type="submit" class="btn">Send</button>
+    </form>
+  </main>
+{% endblock %}

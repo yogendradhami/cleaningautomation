@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ydauto
+      POSTGRES_USER: ydauto
+      POSTGRES_PASSWORD: ydautopass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  web:
+    build: .
+    command: /app/entrypoint.sh
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://ydauto:ydautopass@db:5432/ydauto
+      - DJANGO_DEBUG=0
+      - DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
+      - DJANGO_SECRET_KEY=change-me-in-production
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
+volumes:
+  pgdata:
